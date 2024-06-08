@@ -19,6 +19,7 @@ import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
+import org.owasp.encoder.Encode;
 
 import model.ProductBean;
 import model.ProductModel;
@@ -56,11 +57,11 @@ public class Vendita extends HttpServlet {
 		                if(!item.isFormField()){
 		                    String name = new File(item.getName()).getName();
 		                    item.write( new File(UPLOAD_DIRECTORY + File.separator + name));
-		                    product.setImmagine(name);
+		                    product.setImmagine(Encode.forHtml(name));
 		                }
 		                else {
 		                	if (item.getFieldName().compareTo("nome") == 0) {
-		                		product.setNome(item.getString());
+		                		product.setNome(Encode.forHtml(item.getString()));
 		                	}
 		                	else if (item.getFieldName().compareTo("prezzo") == 0) {
 		                		product.setPrezzo(Double.parseDouble(item.getString()));
@@ -69,13 +70,13 @@ public class Vendita extends HttpServlet {
 		                		product.setSpedizione(Double.parseDouble(item.getString()));
 		                	}
 		                	else if (item.getFieldName().compareTo("tipologia") == 0) {
-		                		product.setTipologia(item.getString());
+		                		product.setTipologia(Encode.forHtml(item.getString()));
 		                	}
 							else if (item.getFieldName().compareTo("tag") == 0) {
-								product.setTag(item.getString());
+								product.setTag(Encode.forHtml(item.getString()));
 							}
 							else if (item.getFieldName().compareTo("descrizione") == 0) {
-		                		product.setDescrizione(item.getString());
+		                		product.setDescrizione(Encode.forHtml(item.getString()));
 		                	}
 		                }
 		            }

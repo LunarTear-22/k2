@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="model.UserBean"%>
 <% if (session.getAttribute("registeredUser") == null) {
@@ -27,7 +30,7 @@
 			<div class="user-details">
 				<div class="input-box">
 					<span class="details">Nome prodotto</span>
-					<input type="text" name="nome" maxlength="50" placeholder="Inserire nome prodotto" autofocus required/>
+					<input type="text" name="nome" maxlength="50" placeholder="Inserire nome prodotto" autofocus required value="${fn:escapeXml(param.nome)}"/>
 				</div>
 				<div class="input-box">
 					<span class="details">Prezzo</span>
@@ -60,7 +63,7 @@
 				</div>
 				<div class="input-box">
 					<span class="details">Descrizione</span>
-					<textarea id="descrizione" name="descrizione" rows="4" cols="60" style="resize: none; width: 450px; height: 80px" required></textarea> <!-- 93 -->
+					<textarea id="descrizione" name="descrizione" rows="4" cols="60" style="resize: none; width: 450px; height: 80px" required>${fn:escapeXml(param.descrizione)}</textarea> <!-- 93 -->
 				</div>
 			</div>
 			<div class="button">
